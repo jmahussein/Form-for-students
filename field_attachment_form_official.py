@@ -6,6 +6,25 @@ import os
 import base64
 import re
 
+
+# ──── Simple app-level password protection ────
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.title("UDSM-MBB Field Attachment – Login")
+    password = st.text_input("Enter access password", type="password", key="login")
+    
+    if st.button("Login"):
+        if password == "mbbfield_PT":   # ← CHANGE THIS to something stronger
+            st.session_state.authenticated = True
+            st.rerun()
+        else:
+            st.error("Incorrect password")
+    st.stop()
+
+
+
 # ────────────────────────────────────────────────
 # Background image + white text + custom button
 # ────────────────────────────────────────────────
